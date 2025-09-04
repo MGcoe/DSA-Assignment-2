@@ -2,7 +2,7 @@
 using namespace std;
 int main()
 {
-    int a[20][20],n,m,b[20][20],i,j,e=0,f=0,c[20][20],d[20][20],k=0,max,g[20][20];
+    int a[20][20],n,m,b[20][20],i,j,e=0,f=0,c[20][20],d[20][20],k=0,max,g[20][20], h[20][20], o;
     cout<<"enter the number of rows into the 1st matrix:\n";
     cin>>n;
     cout<<"enter the number of columns into the 1st matrix:\n";
@@ -121,37 +121,68 @@ int main()
         cout<<"\n";
     }
 
-    if(e>f)
-    {
-        max=e;
-    }
-    else 
-    {
-        max=f;
-    }
+   
     
     k=0;
-        for(j=0;j<max;j++)
+    for(i=0;i<e;i++)
+    {
+        for(j=0;j<f;j++)
         {
-            if(b[j][0]==d[j][0]&&b[j][1]==d[j][1])
+            if(b[i][0]==d[j][0]&&b[i][1]==d[j][1])
             {
-                g[k][0]=b[j][0];
-                g[k][1]=b[j][1];
-                g[k][2]=b[j][2]+d[j][2];
+                g[k][0]=b[i][0];
+                g[k][1]=b[i][1];
+                g[k][2]=b[i][2]+d[j][2];
                 k=k+1;
                 
-            }
-            else 
-            {
-                g[k]=
-            }
+                
+                for(int x=i;x<e-1;x++)
+                {
+                    b[x][0]=b[x+1][0];
+                    b[x][1]=b[x+1][1];
+                    b[x][2]=b[x+1][2];
+                }
+                e--;
+                for(int y=j; y<f-1; y++)
+                {
+                    d[y][0]=d[y+1][0];
+                    d[y][1]=d[y+1][1];
+                    d[y][2]=d[y+1][2];
+                }
         
+                f--;
+                i--;
+                j--;
+                break;
+            }
             
+               
+            }
             
-        }
+        
+    }
+
     
+     for(i=0;i<e;i++)
+    {
+        
+                g[k][0]=b[i][0];
+                g[k][1]=b[i][1];
+                g[k][2]=b[i][2];
+                k=k+1;
+        
+    }
+    for(i=0;i<f;i++)
+    {
+       
+                g[k][0]=d[i][0];
+                g[k][1]=d[i][1];
+                g[k][2]=d[i][2];
+                k=k+1;
+        
+    }
     cout<<"the sparse matrix with the sum of two matrices is given as:\n";
-    for(i=0;i<=k;i++)
+    for(i=0;i<k;i++)
     {
         for(j=0;j<3;j++)
         {
@@ -161,6 +192,29 @@ int main()
         cout<<"\n";
     }
 
-    
-    
+    cout<<"the sum matrix sorted in row major order: "<<endl;
+    for(i = 0; i < k - 1; i++) {
+    for(j = 0; j < k - i - 1; j++) {
+        if ( (g[j][0] > g[j+1][0]) || (g[j][0] == g[j+1][0] && g[j][1] > g[j+1][1]) ) 
+             {
+        
+            for(o = 0; o < 3; o++) 
+            {
+                int temp = g[j][o];
+                g[j][o] = g[j+1][o];
+                g[j+1][o] = temp;
+            }
+        }
+    }
+}
+    for(i=0;i<k;i++)
+    {
+        for(j=0;j<3;j++)
+        {
+            cout<<g[i][j]<<"\t";
+        }
+        cout<<endl;
+    }
+
+
 }
